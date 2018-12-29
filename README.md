@@ -20,13 +20,21 @@ Let's assume the 'shared' environment will host shared components, such as proxy
 * The dev VPCs can access each other, and the shared VPC
 * The prod VPCs can only access the shared VPC
 
-To enable such a scenario, three Route Tables are created in the Transit Gateway, one per environment. Which means both dev VPCs attach to the same Route Table, whereas the shared and prod VPCs each attach to their respective Route Table. Each VPC gets a t2.micro Ubuntu instance to validate the network connectivity over ssh and ICMP (ping)
+To enable such a scenario, three Route Tables are created in the Transit Gateway, one per environment. Which means both dev VPCs attach to the same Route Table, whereas the shared and prod VPCs each attach to their respective Route Table. Each VPC gets a t2.micro Ubuntu instance to validate the network connectivity over ssh and ICMP (ping). The instance in the 'shared' is assigned a public IP so a VPN connection isn't needed. Adding the necessary Terraform resources to establish a VPN connection could be an extension of this project.
 
 ![transit-gateway-architecture](./doc/transit-gateway.png?raw=true "Transit Gateway Architecture")
 
+The thick green links on the diagram represents the authorized traffic through the gateway.
+
+Prerequisites
+-------------
+
+* An AWS account
+* Terraform
+
+
 Usage
 -----
-
 
 * Change ACCESS_KEY and SECRET_KEY values in Variables.tf
 * Change the public_key value to a keypair you own
