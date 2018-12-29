@@ -22,28 +22,28 @@ Let's assume the 'shared' environment will host shared components, such as proxy
 
 To enable such a scenario, three Route Tables are created in the Transit Gateway, one per environment. Which means both dev VPCs attach to the same Route Table, whereas the shared and prod VPCs each attach to their respective Route Table. Each VPC gets a t2.micro Ubuntu instance to validate the network connectivity over ssh and ICMP (ping)
 
-<img src="./doc/transit-gateway.png">
+![transit-gateway-architecture](./doc/transit-gateway.png?raw=true "Transit Gateway Architecture")
 
 Usage
 -----
 
 
-# Change ACCESS_KEY and SECRET_KEY values in Variables.tf
-# Change the public_key value to a keypair you own
-# Deploy the setup with:
+* Change ACCESS_KEY and SECRET_KEY values in Variables.tf
+* Change the public_key value to a keypair you own
+* Deploy the setup with:
 ```sh
 $ terraform init
 $ terraform plan
 $ terraform apply
 ```
-# The public IP of the instance in the 'shared' VPC is printed when deployment ends
-# ssh on this instance
+* The public IP of the instance in the 'shared' VPC is printed when deployment ends
+* ssh on this instance
 ```sh
 $ ssh -i your_private_key ubuntu@$PUBLIC_IP
 ```
-# Check you can ping and ssh any other instance in the other VPCs
-# Also check that, from a dev instance (1 & 2) you cannot reach the prod instance (4) and vice-versa.
-# Delete all resources
+* Check you can ping and ssh any other instance in the other VPCs
+* Also check that, from a dev instance (1 & 2) you cannot reach the prod instance (4) and vice-versa.
+* Delete all resources
 ```sh
 $ terraform destroy
 ```
